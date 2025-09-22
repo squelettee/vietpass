@@ -215,7 +215,24 @@ export function WalletNFTs() {
               <div className="text-center mb-6">
                 <h2 className="text-3xl font-bold text-green-800 mb-2">🇻🇳 VIETNAM</h2>
                 <p className="text-xl font-semibold text-red-700">2025 - DA NANG</p>
-                <p className="text-lg text-gray-700 mt-2">Complete Relocation Guide</p>
+                <div className="mt-4">
+                  <Button
+                    onClick={() => {
+                      // Create a download link for the PDF
+                      const link = document.createElement('a');
+                      link.href = '/VietPass-Digital-Welcome-Kit.pdf';
+                      link.download = 'VietPass-Digital-Welcome-Kit.pdf';
+                      link.target = '_blank';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    }}
+                    className="bg-gradient-to-r from-green-600 to-red-600 hover:from-green-700 hover:to-red-700 text-white font-semibold px-6 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl"
+                  >
+                    <FileText className="w-5 h-5 mr-2" />
+                    📄 Download Complete Guide (PDF)
+                  </Button>
+                </div>
               </div>
             </div>
 
