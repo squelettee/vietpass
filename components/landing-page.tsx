@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { EmbeddedAuthForm } from "@crossmint/client-sdk-react-ui";
 import Image from "next/image";
 
@@ -8,7 +9,7 @@ const howItWorks = [
   {
     step: "1",
     title: "Sign Up",
-    description: "with email or social account.",
+    description: "with email",
     iconPath: "/log-in.svg",
   },
   {
@@ -83,13 +84,6 @@ const targetAudience = [
 ];
 
 export function LandingPage({ isLoading }: { isLoading: boolean }) {
-  const scrollToAuth = () => {
-    const authSection = document.getElementById('auth-section');
-    if (authSection) {
-      authSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Hero Section */}
@@ -102,9 +96,30 @@ export function LandingPage({ isLoading }: { isLoading: boolean }) {
             Your digital companion for the first week in Da Nang — skip the stress, save money, and discover trusted local services.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" className="px-8 py-3 text-lg" onClick={scrollToAuth}>
-              Get Your VietPass for $19
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="lg" className="px-8 py-3 text-lg">
+                  Get Your VietPass for $19
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Get Your VietPass</DialogTitle>
+                  <DialogDescription>
+                    Sign up to get your VietPass and unlock all the benefits for your first week in Da Nang.
+                  </DialogDescription>
+                </DialogHeader>
+                {isLoading ? (
+                  <div className="flex justify-center py-8">
+                    <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                  </div>
+                ) : (
+                  <div className="py-4">
+                    <EmbeddedAuthForm />
+                  </div>
+                )}
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </section>
@@ -207,33 +222,6 @@ export function LandingPage({ isLoading }: { isLoading: boolean }) {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section id="auth-section" className="bg-primary/5 py-16">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <h2 className="text-4xl font-bold text-gray-900">
-              Ready to Start Your Da Nang Journey?
-            </h2>
-            <p className="text-xl text-gray-600">
-              Get your VietPass and unlock all the benefits for your first week in Da Nang.
-            </p>
-
-            {isLoading ? (
-              <div className="flex justify-center">
-                <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-              </div>
-            ) : (
-              <div className="max-w-md mx-auto">
-                <Card>
-                  <CardContent className="p-6">
-                    <EmbeddedAuthForm />
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
