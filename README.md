@@ -1,5 +1,3 @@
-# README Documentation
-
 ## Project goals and features
 
 *Goal:* VietPass aims to be the essential digital companion for digital nomads and long-stay travelers in Da Nang. The MVP provides a simple and trustworthy way for nomads to access curated services, exclusive discounts, and insider knowledge of the city.
